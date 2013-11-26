@@ -1,4 +1,4 @@
-Exec { path => ["/usr/local/sbin", "/usr/local/bin", "/usr/sbin", "/usr/bin", "/sbin", "/bin"] }
+Exec { path => ["/opt/ruby-install/bin", "/usr/local/sbin", "/usr/local/bin", "/usr/sbin", "/usr/bin", "/sbin", "/bin"] }
 
 node default {
   stage { "alpha": before => Stage["bravo"] }
@@ -11,6 +11,10 @@ node default {
   class { "apt::update":
     stage => "bravo",
   }
+
+  class { "ruby": }
+  ruby::install { "1.9.3-p194": }
+  ruby::install { "2.0.0-p353": }
 
   package { "jenkins":
     ensure => "latest",
