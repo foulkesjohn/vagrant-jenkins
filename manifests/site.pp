@@ -12,9 +12,9 @@ node default {
     stage => "bravo",
   }
 
-  class { "ruby": }
-  ruby::install { "1.9.3-p194": }
-  ruby::install { "2.0.0-p353": }
+  class { "chruby": }
+  chruby::install { "ruby-1.9.3-p194": }
+  chruby::install { "ruby-2.0.0-p353": }
 
   package { "jenkins":
     ensure => "latest",

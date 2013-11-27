@@ -1,10 +1,10 @@
-class ruby {
+class chruby {
   file { "ruby-install":
     path => "/opt/ruby-install",
     ensure => "directory",
     recurse => true,
     purge => true,
-    source => "puppet:///modules/ruby/ruby-install-0.3.2",
+    source => "puppet:///modules/chruby/ruby-install-0.3.2",
   }
 
   file { "chruby":
@@ -12,13 +12,13 @@ class ruby {
     ensure => "directory",
     recurse => true,
     purge => true,
-    source => "puppet:///modules/ruby/chruby-0.3.7",
+    source => "puppet:///modules/chruby/chruby-0.3.7",
   }
 
   file { "chruby-profile":
     path => "/etc/profile.d/chruby.sh",
     ensure => "file",
-    source => "puppet:///modules/ruby/chruby.sh",
+    source => "puppet:///modules/chruby/chruby.sh",
   }
 
   package { "libyaml-dev":
