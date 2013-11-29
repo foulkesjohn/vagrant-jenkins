@@ -13,11 +13,13 @@ node default {
   }
 
   class { "chruby": }
-  chruby::install { "ruby-1.9.3-p194": }
-  chruby::install { "ruby-2.0.0-p353": }
-
-  package { "jenkins":
-    ensure => "latest",
+  chruby::install { "ruby-1.9.3-p194":
+    platform => "ruby",
+    version => "1.9.3-p194",
+  }
+  chruby::install { "ruby-2.0.0-p353":
+    platform => "ruby",
+    version => "2.0.0-p353",
   }
 
   package { "git":

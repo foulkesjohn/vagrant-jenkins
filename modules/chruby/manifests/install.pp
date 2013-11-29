@@ -1,8 +1,11 @@
-define chruby::install {
+define chruby::install (
+  $platform,
+  $version
+) {
   exec { "ruby-install-${name}":
-    command => "ruby-install ${name}",
+    command => "ruby-install ${platform} ${version}",
     user => "root",
-    creates => "/opt/rubies/${name}",
+    creates => "/opt/rubies/${platform}-${version}",
     timeout => 0,
     require => Class["chruby"],
   }
@@ -10,8 +13,8 @@ define chruby::install {
   exec { "ruby-install-${name}-bundler":
     command => "gem install bundler --no-ri --no-rdoc",
     user => "root",
-    creates => "/opt/rubies/${name}/bin/bundle",
-    path => ["/opt/rubies/${name}/bin"],
+    creates => "/opt/rubies/${platform}-${version}/bin/bundle",
+    path => ["/opt/rubies/${platform}-${version}/bin"],
     require => Exec["ruby-install-${name}"],
   }
 }
