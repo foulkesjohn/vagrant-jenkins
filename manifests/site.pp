@@ -34,3 +34,47 @@ node default {
     ensure => "latest",
   }
 }
+
+node "jenkins-master.example.com" inherits default {
+  package { "jenkins":
+    ensure => "latest",
+  }
+}
+
+node "jenkins-slave01.example.com" inherits default {
+  package { "jenkins-slave":
+    ensure => "latest",
+  }
+
+  file { "/etc/default/jenkins-slave":
+    ensure => "file",
+    owner => "root",
+    group => "root",
+    mode => "0544",
+    source => "puppet:///modules/jenkins/jenkins-slave-config",
+    notify => Service["jenkins-slave"],
+  }
+
+  service { "jenkins-slave":
+    ensure => "running",
+  }
+}
+
+node "jenkins-slave02.example.com" inherits default {
+  package { "jenkins-slave":
+    ensure => "latest",
+  }
+
+  file { "/etc/default/jenkins-slave":
+    ensure => "file",
+    owner => "root",
+    group => "root",
+    mode => "0544",
+    source => "puppet:///modules/jenkins/jenkins-slave-config",
+    notify => Service["jenkins-slave"],
+  }
+
+  service { "jenkins-slave":
+    ensure => "running",
+  }
+}
