@@ -33,4 +33,8 @@ node default {
   package { "vim":
     ensure => "latest",
   }
+
+  package { "jenkins":
+    ensure => "latest",
+  }
 }
